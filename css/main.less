@@ -1,0 +1,57 @@
+html, body {
+  height: 100%;
+}
+
+#mainWrapper {
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  
+  webview {
+    height: 100%;
+    width: 100%;
+  }
+  
+  button {
+    margin-bottom: 10px;
+  }
+  
+  #buttons {
+    text-align: center;
+    
+    #loginButton {
+      display: none;
+      margin-right: 20px;
+    }
+  }
+  
+  #loginForm {
+    display: none;
+  }
+  
+  > div {
+    width: 300px;
+    padding: 30px;
+    
+    label {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    
+    .user {
+      margin-bottom: 20px;
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #mainWrapper {
+    > div {
+      width: 500px;
+    }
+  }
+}

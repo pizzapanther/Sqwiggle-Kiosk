@@ -1,0 +1,26 @@
+{
+  "name": "Sqwiggle Kiosk",
+  "short_name": "Sqwigl Kiosk",
+  "description": "App for making Sqwiggle Kiosks around your office",
+  "version": "14.4.1",
+  
+  "app": {
+    "background": {
+      "scripts": ["js/bg.js"]
+    }
+  },
+  
+  "icons": {
+    "64": "img/sqwiggle-logo.png"
+  },
+  
+  "permissions": [
+    "fullscreen",
+    "storage",
+    "webview",
+    "audioCapture",
+    "videoCapture",
+    
+    "https://www.sqwiggle.com/*"
+  ]
+}
