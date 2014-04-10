@@ -1,6 +1,7 @@
 var Kiosk = {
   storageKey: "sqwiggle-info",
-  info: {}
+  info: {},
+  triedLogin: false
 };
 
 Kiosk.get_data = function () {
@@ -41,12 +42,7 @@ Kiosk.save = function () {
 };
 
 Kiosk.login = function () {
-  var url = 'https://www.sqwiggle.com/' + Kiosk.info.company;
-  if (Kiosk.info.room) {
-    url += "/" + Kiosk.info.room;
-  }
-  
-  $("#mainWrapper").html('<webview id="sqwiggleView" name="sqwiggle" src="' + url + '" autosize="on"></webview>');
+  $("#mainWrapper").html('<webview id="sqwiggleView" name="sqwiggle" src="" autosize="on"></webview>');
   
   setTimeout(function () {
     Kiosk.set_webview_events();
@@ -54,13 +50,19 @@ Kiosk.login = function () {
 };
 
 Kiosk.load_stop = function (event) {
+  console.log(Kiosk.webview.src);
+  
   if (Kiosk.webview.src == 'https://www.sqwiggle.com/login') {
-    var email = Kiosk.info.email.replace('"', '\\"');
-    var password = Kiosk.info.password.replace('"', '\\"');
-    
-    Kiosk.webview.executeScript({code: 'document.querySelector("#user_email").value = "' + email + '";'});
-    Kiosk.webview.executeScript({code: 'document.querySelector("#user_password").value = "' + password + '";'});
-    Kiosk.webview.executeScript({code: 'document.querySelector("input[name=\'commit\']").click();'});
+    if (!Kiosk.triedLogin) {
+      var email = Kiosk.info.email.replace('"', '\\"');
+      var password = Kiosk.info.password.replace('"', '\\"');
+      
+      Kiosk.webview.executeScript({code: 'document.querySelector("#user_email").value = "' + email + '";'});
+      Kiosk.webview.executeScript({code: 'document.querySelector("#user_password").value = "' + password + '";'});
+      Kiosk.webview.executeScript({code: 'document.querySelector("input[name=\'commit\']").click();'});
+      
+      Kiosk.triedLogin = true;
+    }
   }
 };
 
@@ -74,6 +76,32 @@ Kiosk.set_webview_events = function () {
   });
   
   Kiosk.webview.addEventListener('loadstop', Kiosk.load_stop);
+  
+  var url = 'https://www.sqwiggle.com/' + Kiosk.info.company;
+  if (Kiosk.info.room) {
+    url += "/" + Kiosk.info.room;
+  }
+  
+  //Only available in Dev channel right now, should be stable soon
+  if (Kiosk.webview.clearData) {
+    Kiosk.webview.clearData({since: 0}, {cookies: true, passwords: true},
+      function() {
+        Kiosk.webview.src = url;
+      }
+    );
+  }
+  
+  else {
+    Kiosk.webview.src = url;
+  }
+};
+
+Kiosk.resize_webview = function () {
+  var h = $("#mainWrapper").height();
+  var w = $("#mainWrapper").width();
+  
+  $("webview").height(h);
+  $("webview").width(w);
 };
 
 $(document).ready(function () {
@@ -83,4 +111,8 @@ $(document).ready(function () {
   $("#cancelButton").click(Kiosk.show_buttons);
   $("#saveButton").click(Kiosk.save);
   $("#loginButton").click(Kiosk.login);
+  
+  window.addEventListener('resize', function(event) {
+    Kiosk.resize_webview();
+  });
 });
