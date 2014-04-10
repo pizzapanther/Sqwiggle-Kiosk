@@ -19,7 +19,9 @@ When you restart the app, your login info is saved and you can just login.
 
 **Security Note:** The login info is never displayed anywhere but for security since this will be a public video terminal, you probably don't want to stay logged in with an admin account.
 
-*In the near future I hope to post some directions on how to run Chrome in Kiosk mode with this app.*
+**Kiosk Mode for Chromebook/Chromeboxes:** https://support.google.com/chromebook/answer/3134673?hl=en
+
+Once setup as a kiosk, Sqwiggle Kiosk will autostart.
 
 ## Hardware
 
