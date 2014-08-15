@@ -42,7 +42,7 @@ Kiosk.save = function () {
 };
 
 Kiosk.login = function () {
-  $("#mainWrapper").html('<webview id="sqwiggleView" name="sqwiggle" src="" autosize="on"></webview>');
+  $("#mainWrapper").html('<webview id="sqwiggleView" name="sqwiggle" src="https://app.sqwiggle.com/login" autosize="on"></webview>');
   
   setTimeout(function () {
     Kiosk.set_webview_events();
@@ -52,14 +52,14 @@ Kiosk.login = function () {
 Kiosk.load_stop = function (event) {
   console.log(Kiosk.webview.src);
   
-  if (Kiosk.webview.src == 'https://www.sqwiggle.com/login') {
+  if (Kiosk.webview.src == 'https://app.sqwiggle.com/login') {
     if (!Kiosk.triedLogin) {
       var email = Kiosk.info.email.replace('"', '\\"');
       var password = Kiosk.info.password.replace('"', '\\"');
       
-      Kiosk.webview.executeScript({code: 'document.querySelector("#user_email").value = "' + email + '";'});
-      Kiosk.webview.executeScript({code: 'document.querySelector("#user_password").value = "' + password + '";'});
-      Kiosk.webview.executeScript({code: 'document.querySelector("input[name=\'commit\']").click();'});
+      Kiosk.webview.executeScript({code: 'document.querySelector("#email").value = "' + email + '";'});
+      Kiosk.webview.executeScript({code: 'document.querySelector("#password").value = "' + password + '";'});
+      Kiosk.webview.executeScript({code: 'document.querySelector("input[type=\'submit\']").click();'});
       
       Kiosk.triedLogin = true;
     }
@@ -77,7 +77,7 @@ Kiosk.set_webview_events = function () {
   
   Kiosk.webview.addEventListener('loadstop', Kiosk.load_stop);
   
-  var url = 'https://www.sqwiggle.com/' + Kiosk.info.company;
+  var url = 'https://app.sqwiggle.com/' + Kiosk.info.company;
   if (Kiosk.info.room) {
     url += "/" + Kiosk.info.room;
   }
