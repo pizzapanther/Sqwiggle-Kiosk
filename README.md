@@ -12,7 +12,7 @@ To solve this problem, I created a simple app that you can setup on a public TV 
 ## Setup
 
 1. Install the app at: 
-2. Click the "Change Login Info" button and fill out the info. If you don't know what your Company Slug or Room Slug are, login into Sqwiggle. Once in a chat room you will see a URL like: https://www.sqwiggle.com/company-slug/room-slug. Use those values.
+2. Click the "Change Login Info" button and fill out the info. If you don't know what your Company Slug or Room Slug are, login into Sqwiggle. Once in a chat room you will see a URL like: https://app.sqwiggle.com/room-slug. Use those values.
 3. Click "Save & Login"
 
 When you restart the app, your login info is saved and you can just login.
