@@ -2,7 +2,7 @@
   "name": "Sqwiggle Kiosk",
   "short_name": "Sqwigl Kiosk",
   "description": "App for making Sqwiggle Kiosks around your office",
-  "version": "14.4.2",
+  "version": "14.8.1",
   
   "app": {
     "background": {

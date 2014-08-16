@@ -29,7 +29,6 @@ Kiosk.save = function () {
   Kiosk.info = {
     email: $("#input_email").val(),
     password: $("#input_password").val(),
-    company: $("#input_company").val(),
     room: $("#input_room").val()
   };
   
@@ -77,11 +76,7 @@ Kiosk.set_webview_events = function () {
   
   Kiosk.webview.addEventListener('loadstop', Kiosk.load_stop);
   
-  var url = 'https://app.sqwiggle.com/' + Kiosk.info.company;
-  if (Kiosk.info.room) {
-    url += "/" + Kiosk.info.room;
-  }
-  
+  var url = 'https://app.sqwiggle.com/' + Kiosk.info.room;
   //Only available in Dev channel right now, should be stable soon
   if (Kiosk.webview.clearData) {
     Kiosk.webview.clearData({since: 0}, {cookies: true, passwords: true},
